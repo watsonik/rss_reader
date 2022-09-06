@@ -12,7 +12,7 @@ def main():
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
-    handler = logging.handlers.RotatingFileHandler('logs.txt')
+    handler = logging.handlers.RotatingFileHandler('../logs.txt')
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     handler.setFormatter(formatter)
     logger.addHandler(handler)
