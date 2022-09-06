@@ -3,7 +3,7 @@ import urllib.error
 
 import feedparser
 
-from article import Article
+from main_reader.article import Article
 
 
 def check_limit(limit):
