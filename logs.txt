@@ -1,0 +1,20 @@
+2022-09-06 01:20:23,420 - root - INFO - Verbose mode is ON
+2022-09-06 01:20:23,421 - root - INFO - The limit of articles is set to 1
+2022-09-06 01:20:23,421 - root - INFO - Creating the list of news...
+2022-09-06 01:20:23,421 - root - INFO - The list of news was created successfully!
+2022-09-06 01:21:11,335 - root - INFO - Verbose mode is ON
+2022-09-06 01:21:11,337 - root - INFO - The limit of articles is set to 10
+2022-09-06 01:21:11,338 - root - INFO - Creating the list of news...
+2022-09-06 01:21:11,338 - root - INFO - The list of news was created successfully!
+2022-09-06 01:21:29,656 - root - INFO - Verbose mode is ON
+2022-09-06 01:21:29,657 - root - INFO - Creating the list of news...
+2022-09-06 01:21:29,658 - root - INFO - The list of news was created successfully!
+2022-09-06 01:23:25,156 - root - INFO - Verbose mode is ON
+2022-09-06 01:23:25,157 - root - INFO - Creating the list of news...
+2022-09-06 01:23:25,157 - root - INFO - The list of news was created successfully!
+2022-09-06 01:24:00,769 - root - INFO - Verbose mode is ON
+2022-09-06 01:24:00,770 - root - INFO - Creating the list of news in json format...
+2022-09-06 01:24:00,770 - root - INFO - The list of news was created successfully!
+2022-09-06 01:24:20,374 - root - INFO - Verbose mode is ON
+2022-09-06 01:24:20,375 - root - INFO - Creating the list of news in JSON format...
+2022-09-06 01:24:20,375 - root - INFO - The list of news was created successfully!

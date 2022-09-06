@@ -1,0 +1,32 @@
+import dateparser
+
+
+class Article:
+    def __init__(self, title, link, date, source, image):
+        self.title = title
+        self.link = link
+        self.date = dateparser.parse(date)
+        self.source = source
+        self.image = image
+
+    def date_str(self, formatter):
+        """Convert date to a string"""
+        return self.date.strftime(formatter)
+
+    def __str__(self):
+        return 'Title: ' + self.title + '\n' \
+               + 'Link: ' + self.link + '\n' \
+               + 'Date: ' + self.date_str("%a, %d %B, %Y") + '\n' \
+               + 'Source: ' + self.source + '\n' \
+               + 'Image: ' + self.image + '\n'
+
+    def to_dict(self):
+        """Convert instance of article to a dictionary"""
+        fields = {
+            'Title': self.title,
+            'Link': self.link,
+            'Date': self.date_str("%a, %d %B, %Y"),
+            'Source': self.source,
+            'Image': self.image,
+        }
+        return fields
