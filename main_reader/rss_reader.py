@@ -19,7 +19,6 @@ def main():
     logging.disable()
 
     args = parce_command_line_arguments()
-    print(args)
 
     if args.limit:
         limit = check_limit(args.limit)

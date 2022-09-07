@@ -54,5 +54,5 @@ def get_news(link):
 
 def make_json(article):
     """Converts article to JSON format"""
-    json_article = json.dumps(article.to_dict())
+    json_article = json.dumps(article.to_dict(), indent=4)
     return json_article
