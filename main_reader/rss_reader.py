@@ -2,7 +2,7 @@ import argparse
 import logging.handlers
 import sys
 
-from main_reader.helper import check_limit, get_news, make_json
+from main_reader import helper
 
 VERSION = 2.0
 
@@ -21,7 +21,7 @@ def main():
     args = parce_command_line_arguments()
 
     if args.limit:
-        limit = check_limit(args.limit)
+        limit = helper.check_limit(args.limit)
     else:
         limit = 0
 
@@ -29,14 +29,14 @@ def main():
         logging.disable(0)
         logger.info('Verbose mode is ON')
 
-    news = get_news(args.source)
+    news = helper.get_news(args.source)
     if limit > 0:
         logger.info(f'The limit of articles is set to {limit}')
-        news = news[0:limit]
+        news = news[:limit]
     if args.json:
         logger.info('Creating the list of news in JSON format...')
         for article in news:
-            article_json = make_json(article)
+            article_json = helper.make_json(article)
             print(article_json)
         logger.info('The list of news was created successfully!')
     else:
