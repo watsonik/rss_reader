@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='rss_reader',
-    version='1.0',
+    version='2.0',
     author='Ihar Sakun',
     author_email='watsonik@gmail.com',
     description='Pure Python command-line RSS reader',
