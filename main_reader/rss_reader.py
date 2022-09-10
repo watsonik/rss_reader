@@ -4,7 +4,7 @@ import sys
 
 from main_reader.helper import check_limit, get_news, make_json
 
-VERSION = 1.0
+VERSION = 2.0
 
 
 def main():
