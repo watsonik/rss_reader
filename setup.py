@@ -9,6 +9,6 @@ setup(
     packages=find_packages(),
     install_requires=['feedparser==6.0.10', 'dateparser==1.1.1'],
     entry_points={
-        'console_scripts': 'rss-reader = main_reader.rss_reader:main'
+        'console_scripts': 'rss_reader = main_reader.rss_reader:main'
     }
 )

@@ -30,6 +30,12 @@ def main():
         logger.info('Verbose mode is ON')
 
     news = helper.get_news(args.source)
+    if args.date:
+        try:
+            logger.info(f"Retrieve news from cache for the date {args.date}")
+            news = helper.get_cashed_news(args.date)
+        except ValueError:
+            logger.error("No valid date provided")
     if limit > 0:
         logger.info(f'The limit of articles is set to {limit}')
         news = news[:limit]
@@ -56,6 +62,7 @@ def parce_command_line_arguments():
     parser.add_argument('--json', action='store_true', help='Print result as JSON in stdout')
     parser.add_argument('--verbose', action='store_true', help='Outputs verbose status messages')
     parser.add_argument('--limit', help='Limit news topics if this parameter provided')
+    parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
     args = parser.parse_args()
     return args
 

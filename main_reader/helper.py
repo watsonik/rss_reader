@@ -56,3 +56,7 @@ def make_json(article):
     """Converts article to JSON format"""
     json_article = json.dumps(article.to_dict(), indent=4)
     return json_article
+
+
+def get_cashed_news(date):
+    return list()
