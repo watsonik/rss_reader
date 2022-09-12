@@ -1,4 +1,3 @@
-import argparse
 import logging.handlers
 import pathlib
 import sqlite3
@@ -24,7 +23,7 @@ def main():
     connection = sqlite3.connect(db)
     helper.init_database(connection)
 
-    args = parce_command_line_arguments()
+    args = helper.parce_command_line_arguments()
 
     if args.limit:
         limit = helper.check_limit(args.limit)
@@ -41,7 +40,7 @@ def main():
         try:
             logger.info(f"Retrieve news from cache for the date {args.date}")
             news = helper.get_cashed_news(args.date, connection)
-            if len(news)==0:
+            if len(news) == 0:
                 print(f"Cached news not found for the date {args.date}")
         except ValueError:
             logger.error("No valid date provided")
@@ -59,21 +58,6 @@ def main():
         for article in news:
             print(article)
         logger.info('The list of news was created successfully!')
-
-
-def parce_command_line_arguments():
-    """ Parse command line arguments.
-        :return: parsed arguments
-    """
-    parser = argparse.ArgumentParser(description='Pure Python command-line RSS reader')
-    parser.add_argument('source', type=str, help='RSS URL')
-    parser.add_argument('--version', action='version', version='Version ' + str(VERSION), help='Print version info')
-    parser.add_argument('--json', action='store_true', help='Print result as JSON in stdout')
-    parser.add_argument('--verbose', action='store_true', help='Outputs verbose status messages')
-    parser.add_argument('--limit', help='Limit news topics if this parameter provided')
-    parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
-    args = parser.parse_args()
-    return args
 
 
 if __name__ == '__main__':

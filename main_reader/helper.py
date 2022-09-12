@@ -1,14 +1,25 @@
+import argparse
 import json
 import urllib.error
 
 import feedparser
 
 from main_reader.article import Article
+from main_reader.rss_reader import VERSION
 
 
-def check_limit(limit):
+def check_limit(limit_str):
     """Validating limit"""
-    return int(limit)
+
+    try:
+        limit = int(limit_str)
+    except ValueError:
+        raise SystemExit('The argument "limit" should be a number')
+    else:
+        if limit < 1:
+            raise SystemExit('The argument "limit" should be greater than 0')
+        else:
+            return limit
 
 
 def create_articles(news):
@@ -88,3 +99,18 @@ def save_news(list_of_news, connection, url):
         cursor.execute(query, (fields[0], fields[1], fields[2], fields[3], fields[4],
                                fields[5], url))
     connection.commit()
+
+
+def parce_command_line_arguments():
+    """ Parse command line arguments.
+        :return: parsed arguments
+    """
+    parser = argparse.ArgumentParser(description='Pure Python command-line RSS reader')
+    parser.add_argument('source', type=str, help='RSS URL')
+    parser.add_argument('--version', action='version', version='Version ' + str(VERSION), help='Print version info')
+    parser.add_argument('--json', action='store_true', help='Print result as JSON in stdout')
+    parser.add_argument('--verbose', action='store_true', help='Outputs verbose status messages')
+    parser.add_argument('--limit', help='Limit news topics if this parameter provided')
+    parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
+    args = parser.parse_args()
+    return args
