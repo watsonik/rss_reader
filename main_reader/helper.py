@@ -58,8 +58,15 @@ def make_json(article):
     return json_article
 
 
-def get_cashed_news(date):
-    return list()
+def get_cashed_news(date, connection):
+    """Retrieves news for the selected date"""
+    cursor = connection.cursor()
+    cursor.execute('SELECT title, link, full_date, source, image FROM news WHERE date=:date',
+                   {'date': date})
+    articles = list()
+    for title, link, full_date, source, image in cursor.fetchall():
+        articles.append(Article(title, link, full_date, source, image))
+    return articles
 
 
 def init_database(connection):

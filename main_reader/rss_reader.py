@@ -40,7 +40,9 @@ def main():
     if args.date:
         try:
             logger.info(f"Retrieve news from cache for the date {args.date}")
-            news = helper.get_cashed_news(args.date)
+            news = helper.get_cashed_news(args.date, connection)
+            if len(news)==0:
+                print(f"Cached news not found for the date {args.date}")
         except ValueError:
             logger.error("No valid date provided")
     if limit > 0:
