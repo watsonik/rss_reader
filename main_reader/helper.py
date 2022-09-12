@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import json
 import urllib.error
 
@@ -20,6 +21,15 @@ def check_limit(limit_str):
             raise SystemExit('The argument "limit" should be greater than 0')
         else:
             return limit
+
+
+def check_date(date):
+    """Checks date format is YYYYMMDD"""
+    try:
+        (datetime.datetime.strptime(date, '%Y%m%d')).date()
+        return True
+    except Exception:
+        raise SystemExit('Please, enter the date in "YYYYMMDD" format')
 
 
 def create_articles(news):
@@ -69,13 +79,19 @@ def make_json(article):
     return json_article
 
 
-def get_cashed_news(date, connection):
-    """Retrieves news for the selected date"""
+def get_cashed_news(date, connection, url):
+    """Retrieves news for the selected date and url"""
+    check_date(date)
     cursor = connection.cursor()
-    cursor.execute('SELECT title, link, full_date, source, image FROM news WHERE date=:date',
-                   {'date': date})
+    if url:
+        cursor.execute('SELECT title, link, full_date, source, image, url FROM news WHERE date=:date and url=:url',
+                       {'date': date, 'url': url})
+    else:
+        cursor.execute('SELECT title, link, full_date, source, image, url FROM news WHERE date=:date',
+                       {'date': date})
     articles = list()
-    for title, link, full_date, source, image in cursor.fetchall():
+    records = cursor.fetchall()
+    for title, link, full_date, source, image, url in records:
         articles.append(Article(title, link, full_date, source, image))
     return articles
 
@@ -93,11 +109,8 @@ def save_news(list_of_news, connection, url):
     cursor = connection.cursor()
     for item in list_of_news:
         new_date = item.date.strftime('%Y%m%d')
-        fields = [item.title, item.link, item.date, new_date, item.source, item.image]
-
         query = "INSERT OR REPLACE INTO news VALUES (?, ?, ?, ?, ?, ?, ?)"
-        cursor.execute(query, (fields[0], fields[1], fields[2], fields[3], fields[4],
-                               fields[5], url))
+        cursor.execute(query, (item.title, item.link, item.date, new_date, item.source, item.image, url))
     connection.commit()
 
 
@@ -106,7 +119,7 @@ def parce_command_line_arguments():
         :return: parsed arguments
     """
     parser = argparse.ArgumentParser(description='Pure Python command-line RSS reader')
-    parser.add_argument('source', type=str, help='RSS URL')
+    parser.add_argument('source', type=str, nargs='?', default=None, help='RSS URL')
     parser.add_argument('--version', action='version', version='Version ' + str(VERSION), help='Print version info')
     parser.add_argument('--json', action='store_true', help='Print result as JSON in stdout')
     parser.add_argument('--verbose', action='store_true', help='Outputs verbose status messages')

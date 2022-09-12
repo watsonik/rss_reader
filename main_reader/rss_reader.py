@@ -34,16 +34,19 @@ def main():
         logging.disable(0)
         logger.info('Verbose mode is ON')
 
-    news = helper.get_news(args.source)
-    helper.save_news(news, connection, args.source)
+    news = list()
+    # helper.save_news(news, connection, args.source)
     if args.date:
         try:
             logger.info(f"Retrieve news from cache for the date {args.date}")
-            news = helper.get_cashed_news(args.date, connection)
+            news = helper.get_cashed_news(args.date, connection, args.source)
             if len(news) == 0:
-                print(f"Cached news not found for the date {args.date}")
+                raise SystemExit(f"Cached news not found for the date {args.date}")
         except ValueError:
             logger.error("No valid date provided")
+    else:
+        news = helper.get_news(args.source)
+        helper.save_news(news, connection, args.source)
     if limit > 0:
         logger.info(f'The limit of articles is set to {limit}')
         news = news[:limit]
