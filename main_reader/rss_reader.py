@@ -1,5 +1,7 @@
 import argparse
 import logging.handlers
+import pathlib
+import sqlite3
 import sys
 
 from main_reader import helper
@@ -18,6 +20,10 @@ def main():
     logger.addHandler(handler)
     logging.disable()
 
+    db = str(pathlib.Path(__file__).parent.absolute()) + '\\news.db'
+    connection = sqlite3.connect(db)
+    helper.init_database(connection)
+
     args = parce_command_line_arguments()
 
     if args.limit:
@@ -30,6 +36,7 @@ def main():
         logger.info('Verbose mode is ON')
 
     news = helper.get_news(args.source)
+    helper.save_news(news, connection, args.source)
     if args.date:
         try:
             logger.info(f"Retrieve news from cache for the date {args.date}")

@@ -60,3 +60,24 @@ def make_json(article):
 
 def get_cashed_news(date):
     return list()
+
+
+def init_database(connection):
+    cursor = connection.cursor()
+    sql = 'CREATE TABLE IF NOT EXISTS news (title text, link text UNIQUE, full_date text, date text, source text, ' \
+          'image text, url text)'
+    cursor.execute(sql)
+    connection.commit()
+
+
+def save_news(list_of_news, connection, url):
+    """Save news into database"""
+    cursor = connection.cursor()
+    for item in list_of_news:
+        new_date = item.date.strftime('%Y%m%d')
+        fields = [item.title, item.link, item.date, new_date, item.source, item.image]
+
+        query = "INSERT OR REPLACE INTO news VALUES (?, ?, ?, ?, ?, ?, ?)"
+        cursor.execute(query, (fields[0], fields[1], fields[2], fields[3], fields[4],
+                               fields[5], url))
+    connection.commit()
