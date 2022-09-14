@@ -1,7 +1,6 @@
 import logging.handlers
 import pathlib
 import sqlite3
-import sys
 
 from main_reader import helper
 
@@ -9,15 +8,7 @@ VERSION = 2.0
 
 
 def main():
-    # Creating logger
-    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.handlers.RotatingFileHandler('../logs.txt')
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logging.disable()
+    logger = helper.create_logger()
 
     db = str(pathlib.Path(__file__).parent.absolute()) + '\\news.db'
     connection = sqlite3.connect(db)

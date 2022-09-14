@@ -1,6 +1,8 @@
 import argparse
 import datetime
 import json
+import logging.handlers
+import sys
 import urllib.error
 
 import feedparser
@@ -127,3 +129,16 @@ def parce_command_line_arguments():
     parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
     args = parser.parse_args()
     return args
+
+
+def create_logger():
+    # Creating logger
+    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.handlers.RotatingFileHandler('../logs.txt')
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logging.disable()
+    return logger
