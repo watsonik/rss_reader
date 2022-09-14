@@ -4,7 +4,7 @@ import sqlite3
 
 from main_reader import helper
 
-VERSION = 2.0
+VERSION = 3.0
 
 
 def main():
