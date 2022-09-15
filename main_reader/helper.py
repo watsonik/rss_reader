@@ -4,6 +4,7 @@ import json
 import logging.handlers
 import sys
 import urllib.error
+from pathlib import Path
 
 import feedparser
 
@@ -127,6 +128,8 @@ def parce_command_line_arguments():
     parser.add_argument('--verbose', action='store_true', help='Outputs verbose status messages')
     parser.add_argument('--limit', help='Limit news topics if this parameter provided')
     parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
+    parser.add_argument('--to_html', type=Path, help='The absolute path where new .html file will be saved')
+    parser.add_argument('--to_pdf', type=Path, help='The absolute path where new .pdf file will be saved')
     args = parser.parse_args()
     return args
 
@@ -142,3 +145,11 @@ def create_logger():
     logger.addHandler(handler)
     logging.disable()
     return logger
+
+
+def save_news_html(news, to_html):
+    return None
+
+
+def save_news_pdf(news, to_pdf):
+    return None
