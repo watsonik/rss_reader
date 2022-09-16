@@ -55,7 +55,7 @@ def main():
     if args.to_html:
         logger.info('Converting existing list of news to HTML format...')
         # for article in news:
-        helper.save_news_html(news,args.to_html)
+        helper.save_news_html(news,args.to_html, logger)
         logger.info('The list of news was saved as HTML successfully!')
     if args.to_pdf:
         logger.info('Converting existing list of news to PDF format...')

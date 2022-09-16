@@ -5,6 +5,8 @@ import logging.handlers
 import os
 import sys
 import urllib.error
+
+from dominate import tags
 from pathlib import Path
 
 import feedparser
@@ -159,8 +161,37 @@ def check_directory_exists(dir_path, logger):
         return True
 
 
-def save_news_html(news, to_html):
-    return None
+def add_article_html(article, html_file):
+    """Template for article"""
+    with html_file:
+        tags.h1(article.title)
+        tags.p(tags.b('Title: '), article.title)
+        tags.p(tags.b('Link: ', tags.a(tags.b(article.link), href=article.link, )))
+        tags.p(tags.b('Date: '), article.date.strftime("%a, %d %B, %Y"))
+        tags.p(tags.b('Source: '), article.source)
+        if article.image != '---':
+            tags.p(tags.img(style="width:360px", src=article.image))
+        else:
+            tags.p(tags.b('No images'))
+    return html_file
+
+
+def save_news_html(news, path_to_html, logger):
+    """Convert news to HTML"""
+    check_directory_exists(path_to_html, logger)
+    html_file = tags.html(title='RSS news')
+    html_file.add(tags.head(tags.meta(charset='utf-8')))
+
+    logger.info('Converting news to HTML...')
+    for article in news:
+        add_article_html(article, html_file)
+
+    path = os.path.join(path_to_html, 'news.html')
+    logger.info('Creating html file...')
+    with open(path, 'w', encoding='utf-8') as file:
+        file.write(str(html_file))
+    logger.info('Html file created successfully!')
+    return file
 
 
 def save_news_pdf(news, to_pdf):
