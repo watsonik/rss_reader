@@ -2,6 +2,7 @@ import argparse
 import datetime
 import json
 import logging.handlers
+import os
 import sys
 import urllib.error
 from pathlib import Path
@@ -145,6 +146,17 @@ def create_logger():
     logger.addHandler(handler)
     logging.disable()
     return logger
+
+
+def check_directory_exists(dir_path, logger):
+    """Checks that directory exists by specified path"""
+    logger.info('Checking the entered path...')
+    if os.path.isdir(dir_path) is False:
+        err_message = f'Invalid path: {dir_path} is not a directory'
+        logger.error(err_message)
+        raise NotADirectoryError(err_message)
+    else:
+        return True
 
 
 def save_news_html(news, to_html):
