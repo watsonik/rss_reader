@@ -2,8 +2,7 @@ Pure Python command-line RSS reader.
 
 This rss_reader receives RSS URL and prints results in human-readable format.
 
-
-Interface example: 
+Interface example:
 
     usage: rss_reader.py [-h] [--version] [--json] [--verbose] [--limit LIMIT] 
                         source
@@ -14,13 +13,15 @@ Interface example:
       source         RSS URL
 
     optional arguments:
-      -h, --help     Show this help message and exit
-      --version      Print version info
-      --json         Print result as JSON in stdout
-      --verbose      Outputs verbose status messages
-      --limit LIMIT  Limit news topics if this parameter provided
-      --date [DATE]  Get news on a specified date
-        
+      -h, --help        Show this help message and exit
+      --version         Print version info
+      --json            Print result as JSON in stdout
+      --verbose         Outputs verbose status messages
+      --limit LIMIT     Limit news topics if this parameter provided
+      --date [DATE]     Get news on a specified date
+      --to-html TO_HTML The absolute path where new .html file will be saved
+      --to-pdf TO_PDF   The absolute path where new .pdf file will be saved
+
 JSON structure:
 
     {

@@ -4,7 +4,7 @@ import sqlite3
 
 from main_reader import helper
 
-VERSION = 3.0
+VERSION = 4.0
 
 
 def main():
@@ -52,16 +52,16 @@ def main():
         for article in news:
             print(article)
         logger.info('The list of news was created successfully!')
-    if args.to_html:
-        logger.info('Converting existing list of news to HTML format...')
-        # for article in news:
-        helper.save_news_html(news,args.to_html, logger)
-        logger.info('The list of news was saved as HTML successfully!')
     if args.to_pdf:
         logger.info('Converting existing list of news to PDF format...')
         # for article in news:
-        helper.save_news_pdf(news,args.to_pdf)
+        helper.save_news_pdf(news, args.to_pdf, logger)
         logger.info('The list of news was saved as PDF successfully!')
+    if args.to_html:
+        logger.info('Converting existing list of news to HTML format...')
+        # for article in news:
+        helper.save_news_html(news, args.to_html, logger)
+        logger.info('The list of news was saved as HTML successfully!')
 
 
 if __name__ == '__main__':

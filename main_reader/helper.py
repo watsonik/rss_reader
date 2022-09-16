@@ -8,6 +8,7 @@ import urllib.error
 
 from dominate import tags
 from pathlib import Path
+from xhtml2pdf import pisa
 
 import feedparser
 
@@ -194,5 +195,17 @@ def save_news_html(news, path_to_html, logger):
     return file
 
 
-def save_news_pdf(news, to_pdf):
-    return None
+def save_news_pdf(news, path_to_pdf, logger):
+    html_file = save_news_html(news, path_to_pdf, logger)
+    path = os.path.join(path_to_pdf, 'news.pdf')
+    try:
+        with open(path, 'wb') as pdf_file, open(html_file.name, 'r', encoding='utf-8') as html_file:
+            logger.info('Creating pdf-file...')
+            pisa.CreatePDF(src=html_file, dest=pdf_file)
+            logger.info("Pdf-file created successfully!")
+            html_file.close()
+            os.remove(html_file.name)
+            logger.info("Temporary html-file deleted")
+        return pdf_file
+    except FileNotFoundError:
+        raise SystemExit('Please, check the existing of file')
