@@ -3,18 +3,22 @@ import pathlib
 import sqlite3
 
 from main_reader import helper
+from main_reader.colorize_logger import ColorizeLogger
 
-VERSION = 4.0
+VERSION = 5.0
 
 
 def main():
-    logger = helper.create_logger()
+    logger = ColorizeLogger()
 
     db = str(pathlib.Path(__file__).parent.absolute()) + '\\news.db'
     connection = sqlite3.connect(db)
     helper.init_database(connection)
 
     args = helper.parce_command_line_arguments()
+
+    if args.colorize:
+        logger.is_colorize = True
 
     if args.limit:
         limit = helper.check_limit(args.limit)
@@ -45,12 +49,12 @@ def main():
         logger.info('Creating the list of news in JSON format...')
         for article in news:
             article_json = helper.make_json(article)
-            print(article_json)
+            logger.print(article_json)
         logger.info('The list of news was created successfully!')
     else:
         logger.info('Creating the list of news...')
         for article in news:
-            print(article)
+            logger.print(article)
         logger.info('The list of news was created successfully!')
     if args.to_pdf:
         logger.info('Converting existing list of news to PDF format...')

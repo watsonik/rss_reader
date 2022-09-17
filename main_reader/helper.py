@@ -134,21 +134,9 @@ def parce_command_line_arguments():
     parser.add_argument('--date', type=str, nargs='?', default='', help='Get news on a specified date')
     parser.add_argument('--to_html', type=Path, help='The absolute path where new .html file will be saved')
     parser.add_argument('--to_pdf', type=Path, help='The absolute path where new .pdf file will be saved')
+    parser.add_argument('--colorize', action='store_true', help='Print the result of the utility in colorized mode')
     args = parser.parse_args()
     return args
-
-
-def create_logger():
-    # Creating logger
-    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.handlers.RotatingFileHandler('../logs.txt')
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logging.disable()
-    return logger
 
 
 def check_directory_exists(dir_path, logger):

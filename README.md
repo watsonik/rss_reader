@@ -21,6 +21,7 @@ Interface example:
       --date [DATE]     Get news on a specified date
       --to-html TO_HTML The absolute path where new .html file will be saved
       --to-pdf TO_PDF   The absolute path where new .pdf file will be saved
+      --colorize        Prints the result of the utility in colorized mode
 
 JSON structure:
 
