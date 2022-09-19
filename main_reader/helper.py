@@ -1,9 +1,7 @@
 import argparse
 import datetime
 import json
-import logging.handlers
 import os
-import sys
 import urllib.error
 
 from dominate import tags
@@ -104,6 +102,7 @@ def get_cashed_news(date, connection, url):
 
 
 def init_database(connection):
+    """Creating DB table"""
     cursor = connection.cursor()
     sql = 'CREATE TABLE IF NOT EXISTS news (title text, link text UNIQUE, full_date text, date text, source text, ' \
           'image text, url text)'

@@ -1,3 +1,4 @@
+""" Main module. Receive input info from bash, parse it and print result to stdout """
 import logging.handlers
 import pathlib
 import sqlite3
@@ -9,8 +10,15 @@ VERSION = 5.0
 
 
 def main():
+    """
+        Receive parsed arguments, call functions to set logger and number of news to show, choose format
+        of news to print (json or not) and call valid function for printing.
+        """
+
+    # Creating logger
     logger = ColorizeLogger()
 
+    # Creating connection
     db = str(pathlib.Path(__file__).parent.absolute()) + '\\news.db'
     connection = sqlite3.connect(db)
     helper.init_database(connection)
@@ -30,7 +38,6 @@ def main():
         logger.info('Verbose mode is ON')
 
     news = list()
-    # helper.save_news(news, connection, args.source)
     if args.date:
         try:
             logger.info(f"Retrieve news from cache for the date {args.date}")
@@ -58,12 +65,10 @@ def main():
         logger.info('The list of news was created successfully!')
     if args.to_pdf:
         logger.info('Converting existing list of news to PDF format...')
-        # for article in news:
         helper.save_news_pdf(news, args.to_pdf, logger)
         logger.info('The list of news was saved as PDF successfully!')
     if args.to_html:
         logger.info('Converting existing list of news to HTML format...')
-        # for article in news:
         helper.save_news_html(news, args.to_html, logger)
         logger.info('The list of news was saved as HTML successfully!')
 

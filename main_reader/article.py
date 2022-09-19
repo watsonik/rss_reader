@@ -2,6 +2,8 @@ import dateparser
 
 
 class Article:
+    """Creates a news instance with the necessary attributes"""
+
     def __init__(self, title, link, date, source, image):
         self.title = title
         self.link = link
@@ -20,6 +22,7 @@ class Article:
         return False
 
     def __str__(self):
+        """Overrides the default implementation"""
         return 'Title: ' + self.title + '\n' \
                + 'Link: ' + self.link + '\n' \
                + 'Date: ' + self.date_str("%a, %d %B, %Y") + '\n' \

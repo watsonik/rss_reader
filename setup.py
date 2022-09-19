@@ -1,3 +1,6 @@
+"""
+Allow users use the reader without python installation, just with CLI.
+"""
 from setuptools import setup, find_packages
 
 setup(
