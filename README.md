@@ -1,12 +1,24 @@
-Pure Python command-line RSS reader.
+# Pure Python command-line RSS reader
 
-This rss_reader receives RSS URL and prints results in human-readable format.
+## Assumptions
+RSS reader for receiving news from link, cashing it, saving to html/pdf and printing to stdout in simple or json format.
 
-Interface example:
+## Requirements
 
-    usage: rss_reader.py [-h] [--version] [--json] [--verbose] [--limit LIMIT] 
-                        source
+Do not need any additional installations for using as a script.
 
+For using as a package please run first `pip install -r requirements.txt`
+
+## Usage
+
+To run the reader it's possible to assign either
+`python rss_reader.py "RSS URL" [optional arguments]`
+
+or  `rss_reader "RSS URL" [optional arguments]` (after installation)
+
+```
+usage: rss_reader [-h] [--version] [--limit LIMIT] [--json] [--verbose] [--colorize] [--date DATE] 
+[--to-pdf TO_PDF] [--to-html TO_HTML] [source]
     Pure Python command-line RSS reader
 
     positional arguments:
