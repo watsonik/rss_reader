@@ -9,10 +9,9 @@ LINK = 'test_link'
 SOURCE = 'test_source'
 TITLE = 'test_title'
 
-"""Test cases for testing methods of Article class"""
-
 
 class TestArticle(unittest.TestCase):
+    """Test cases for testing methods of Article class"""
 
     def setUp(self) -> None:
         self.article = Article(TITLE, LINK, DATE, SOURCE, IMAGE)

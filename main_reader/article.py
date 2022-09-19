@@ -13,6 +13,12 @@ class Article:
         """Convert date to a string"""
         return self.date.strftime(formatter)
 
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if isinstance(other, Article):
+            return self.link == other.link
+        return False
+
     def __str__(self):
         return 'Title: ' + self.title + '\n' \
                + 'Link: ' + self.link + '\n' \
